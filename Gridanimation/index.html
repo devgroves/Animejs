@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime.js Grid Animation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #2c3e50;
+            font-family: Arial, sans-serif;
+            color: #ecf0f1;
+            text-align: center;
+        }
+        
+        #grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 10px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .grid-item {
+            width: 30px;
+            height: 30px;
+            background: #e74c3c;
+            opacity: 0;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        button {
+            background: #e67e22;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            background: #d35400;
+        }
+    </style>
+</head>
+<body>
+    <h2>Grid Animation</h2>
+    <div id="grid-container"></div>
+    <button onclick="triggerGridAnimation()">Animate Grid</button>
+
+    <script>
+        function createGrid() {
+            const container = document.getElementById("grid-container");
+            container.innerHTML = '';
+
+            for (let i = 0; i < 25; i++) {
+                const div = document.createElement("div");
+                div.classList.add("grid-item");
+                container.appendChild(div);
+            }
+        }
+
+        function triggerGridAnimation() {
+            createGrid();
+
+            anime({
+                targets: '.grid-item',
+                opacity: [0, 1],
+                scale: [0.5, 1.2, 1],
+                rotate: () => anime.random(0, 360),
+                delay: anime.stagger(100), 
+                duration: 800,
+                easing: 'easeOutQuad'
+            });
+        }
+    </script>
+</body>
+</html>
